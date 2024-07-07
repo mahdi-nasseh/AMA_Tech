@@ -3,7 +3,6 @@ class db
 {
     protected $db;
     private $dbname;
-    private $dbhost;
     private $dbuser;
     private $dbpass;
     function __construct( $dbname , $dbuser , $dbpass ){
@@ -40,7 +39,7 @@ class db
         }
         return $new_vals;
     }
-    function insert($table,$data)
+    function insert($table, array $data)
     {
         $sql = "INSERT INTO {$table} (";
         $sql .= implode(", ",array_keys($data));
@@ -48,27 +47,32 @@ class db
         $sql .= ") VALUES (";
         $sql .= implode(", ", $this->change_data($values));
         $sql .= ');';
+        print_r($sql);exit();
         $this->db->exec($sql);
         return $this->db->lastInsertId();
     }
-    function update($table,$data,$where){
+    function update($table, array $data, $where){
         $sql = "UPDATE {$table} SET ";
+        $cols = [];
         foreach ($data as $key => $value) {
             $value = $this->change_data($value);
-            $sql.= "$key = $value[0]";
+
+            array_push($cols,"$key = $value[0]");
         }
+        $cols = implode(", ", $cols);
+        $sql .= $cols;
         $sql .= " WHERE {$where}";
         return $this->db->exec($sql);
     }
-    function delete($table,$where)
+    function delete($table, $where)
     {
         $sql = "DELETE FROM {$table} WHERE {$where}";
         return $this->db->exec($sql);
     }
-    function select($table,$where)
+    function select($table, $where)
     {
         $sql = 'SELECT * FROM '.$table.' WHERE '.$where;
-        return $this->db->query($sql)->fetch(PDO::FETCH_OBJ);
+        return $this->db->query($sql);
     }
     function selects($table, $where = '1=1', $limit = 0, $offset = 0)
     {
