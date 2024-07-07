@@ -1,12 +1,10 @@
 @font-face {
-    font-family: vazir;
-    src: url('../font/Vazirmatn-Regular.woff2');
+    font-family: iransans;
+    src: url('../font/IRANSansWeb.woff2');
 }
-
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'vazir';
+    font-family: 'iransans';
 }
