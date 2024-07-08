@@ -50,4 +50,15 @@ class user extends db {
         ], "id = $id");
         return $result;
     }
+    function remove($id){
+        return $this->delete($this->table, "id = $id");
+    }
+    function select_user($where)
+    {
+        return $this->select($this->table, $where)->fetch(PDO::FETCH_OBJ);
+    }
+    function select_users($where = '1=1', $limit = 0, $offset = 0)
+    {
+        return $this->selects($this->table, $where, $limit, $offset)->fetchAll(PDO::FETCH_OBJ);
+    }
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4ddc3c29-a2a2-4e7c-b9c9-e7a0fb7a5bda" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/view/template/ama_tech.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/fonts/Vazir.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/fonts/Vazir.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/fonts/Vazir.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/fonts/Vazir.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/bookmark-fill.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/bookmark.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/eye-fill.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/eye.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/heart-fill.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/heart.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/profile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/icons/search.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/images/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/images/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/images/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/images/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/images/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/images/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/assets/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/search.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/template/single.html" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2iuOtSpfngPoCVklvWc6nuI3Tm5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PS-241.14494.237" />
+        <option value="bundled-php-predefined-ba97393d7c68-8f0632a2a215-com.jetbrains.php.sharedIndexes-PS-241.14494.237" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4ddc3c29-a2a2-4e7c-b9c9-e7a0fb7a5bda" name="Changes" comment="" />
+      <created>1720337211585</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1720337211585</updated>
+      <workItem from="1720337212582" duration="5615000" />
+      <workItem from="1720344479551" duration="413000" />
+      <workItem from="1720426494908" duration="3160000" />
+      <workItem from="1720501528807" duration="3306000" />
+      <workItem from="1720504954836" duration="141000" />
+      <workItem from="1720506638849" duration="839000" />
+      <workItem from="1720592548346" duration="5762000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

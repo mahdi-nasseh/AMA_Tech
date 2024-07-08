@@ -66,7 +66,7 @@ class db
     }
     function delete($table, $where)
     {
-        $sql = "DELETE FROM {$table} WHERE {$where}";
+        $sql = "DELETE FROM $table WHERE {$where}";
         return $this->db->exec($sql);
     }
     function select($table, $where)
@@ -74,12 +74,12 @@ class db
         $sql = 'SELECT * FROM '.$table.' WHERE '.$where;
         return $this->db->query($sql);
     }
-    function selects($table, $where = '1=1', $limit = 0, $offset = 0)
+    function selects($table, $where  = '1=1', $limit = 0, $offset = 0)
     {
         $sql = 'SELECT * FROM '.$table.' WHERE '.$where;
         if ($limit > 0) {
             $sql .= ' LIMIT '.$limit . ' OFFSET '.$offset;
         }
-        return $this->db->query($sql)->fetchAll(PDO::FETCH_OBJ);
+        return $this->db->query($sql);
     }
 }
