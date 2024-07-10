@@ -21,7 +21,7 @@ require_once '../auto_load.php';
     <nav class="d-flex justify-content-between align-items-start mt-2 pb-3 mb-4 border-bottom">
         <div class="d-flex flex-column flex-md-row align-items-center d-inline-flex gap-3">
             <h1 class="fs-4 mt-2 fw-medium link-body-emphasis text-decoration-none ms-5">AMA<span
-                    class="text-danger fst-italic">T</span>ech</h1>
+                        class="text-danger fst-italic">T</span>ech</h1>
             <a class="fw-bold me-3 py-2 link-body-emphasis text-decoration-none" href="#">خانه</a>
             <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">هوش مصنوعی</a>
             <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">سخت افزار</a>
@@ -37,8 +37,8 @@ require_once '../auto_load.php';
             <input type="text" class="form-control" name="search" id="search" placeholder="جست و جو">
         </form>
         <div class="mt-1">
-            <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
-            <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
+            <?= isset($_SESSION['uesr_id']) ? '<a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>' : '<a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>'  ?>
+
         </div>
     </nav>
     <!-- end nav -->
@@ -100,7 +100,8 @@ require_once '../auto_load.php';
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/1.jpg" class="card-img-top" alt="post-image" height="250"/>
+                                    <img src="./assets/images/1.jpg" class="card-img-top" alt="post-image"
+                                         height="250"/>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h4 class="card-title fw-bold">
@@ -126,7 +127,8 @@ require_once '../auto_load.php';
                                             </span>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg" alt="heart"> 10</span>
+                                                <span><img class="me-3" src="assets/icons/heart.svg"
+                                                           alt="heart"> 10</span>
                                                 <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
                                             </div>
                                         </div>
@@ -137,7 +139,8 @@ require_once '../auto_load.php';
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/2.jpg" class="card-img-top" alt="post-image" height="250"/>
+                                    <img src="./assets/images/2.jpg" class="card-img-top" alt="post-image"
+                                         height="250"/>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h5 class="card-title fw-bold">
@@ -163,7 +166,8 @@ require_once '../auto_load.php';
                                             </p>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg" alt="heart"> 10</span>
+                                                <span><img class="me-3" src="assets/icons/heart.svg"
+                                                           alt="heart"> 10</span>
                                                 <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
                                             </div>
                                         </div>
@@ -174,7 +178,8 @@ require_once '../auto_load.php';
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/3.jpg" class="card-img-top" alt="post-image" height="250"/>
+                                    <img src="./assets/images/3.jpg" class="card-img-top" alt="post-image"
+                                         height="250"/>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h5 class="card-title fw-bold">
@@ -200,7 +205,8 @@ require_once '../auto_load.php';
                                             </p>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg" alt="heart"> 10</span>
+                                                <span><img class="me-3" src="assets/icons/heart.svg"
+                                                           alt="heart"> 10</span>
                                                 <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
                                             </div>
                                         </div>
@@ -211,7 +217,8 @@ require_once '../auto_load.php';
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/4.jpg" class="card-img-top" alt="post-image" height="250"/>
+                                    <img src="./assets/images/4.jpg" class="card-img-top" alt="post-image"
+                                         height="250"/>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h5 class="card-title fw-bold">
@@ -237,7 +244,8 @@ require_once '../auto_load.php';
                                             </p>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg" alt="heart"> 10</span>
+                                                <span><img class="me-3" src="assets/icons/heart.svg"
+                                                           alt="heart"> 10</span>
                                                 <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
                                             </div>
                                         </div>
@@ -248,7 +256,8 @@ require_once '../auto_load.php';
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/5.jpg" class="card-img-top" alt="post-image" height="250"/>
+                                    <img src="./assets/images/5.jpg" class="card-img-top" alt="post-image"
+                                         height="250"/>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h5 class="card-title fw-bold">
@@ -274,7 +283,8 @@ require_once '../auto_load.php';
                                             </p>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg" alt="heart"> 10</span>
+                                                <span><img class="me-3" src="assets/icons/heart.svg"
+                                                           alt="heart"> 10</span>
                                                 <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
                                             </div>
                                         </div>
@@ -285,7 +295,8 @@ require_once '../auto_load.php';
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/6.jpg" class="card-img-top" alt="post-image" height="250"/>
+                                    <img src="./assets/images/6.jpg" class="card-img-top" alt="post-image"
+                                         height="250"/>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between">
                                             <h5 class="card-title fw-bold">
@@ -311,7 +322,8 @@ require_once '../auto_load.php';
                                             </p>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg" alt="heart"> 10</span>
+                                                <span><img class="me-3" src="assets/icons/heart.svg"
+                                                           alt="heart"> 10</span>
                                                 <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
                                             </div>
                                         </div>

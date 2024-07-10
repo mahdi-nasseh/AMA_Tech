@@ -21,19 +21,19 @@
     <section class="wrapper">
       <div class="form signup">
         <header>ثبت نام</header>
-        <form action="../control/user.php" method="get">
+        <form action="../control/action.php" method="post">
           <input type="text" placeholder="نام" required name="name"/>
             <input type="text" placeholder="نام کاربری" required name="username"/>
             <input type="hidden" value="<?= NULL ?>" placeholder="موبایل" required name="tel"/>
           <input type="email" placeholder="ایمیل" required name="email">
           <input type="password" placeholder="رمز عبور" required name="password"/>
-          <input type="submit" value="ثبت نام" name="singup"/>
+          <input type="submit" value="ثبت نام" name="signup"/>
         </form>
       </div>
 
       <div class="form login">
         <header>ورود</header>
-        <form action="#">
+        <form action="../control/action.php" method="post">
           <input type="text" placeholder="نام کاربری یا ایمیل یا موبایل" required />
           <input type="password" placeholder="رمز عبور" required />
           <a href="#">رمز عبور خود را فراموش کردید؟</a>

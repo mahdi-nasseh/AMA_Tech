@@ -47,7 +47,6 @@ class db
         $sql .= ") VALUES (";
         $sql .= implode(", ", $this->change_data($values));
         $sql .= ');';
-        print_r($sql);exit();
         $this->db->exec($sql);
         return $this->db->lastInsertId();
     }
@@ -72,6 +71,9 @@ class db
     function select($table, $where)
     {
         $sql = 'SELECT * FROM '.$table.' WHERE '.$where;
+//        print_r($sql);exit();
+//        var_dump($this->($sql));exit();
+//        var_dump($this->db);exit();
         return $this->db->query($sql);
     }
     function selects($table, $where  = '1=1', $limit = 0, $offset = 0)
@@ -83,3 +85,6 @@ class db
         return $this->db->query($sql);
     }
 }
+
+
+

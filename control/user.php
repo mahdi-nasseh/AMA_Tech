@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+require_once '../auto_load.php';
 class user extends db {
     private $table = 'user';
     function login($username, $password = 0) {
@@ -12,17 +12,14 @@ class user extends db {
         else
             return false;
     }
-    function register($name, $username, $password, $mobile, $email)
+    function register($name, $username, $password, $email)
     {
         $has_username = $this->select($this->table, "username='$username'")->fetch(PDO::FETCH_OBJ);
-        $has_mobile = $this->select($this->table, "mobile='$mobile'")->fetch(PDO::FETCH_OBJ);
         $has_email = $this->select($this->table, "email='$email'")->fetch(PDO::FETCH_OBJ);
         $err_alert = [];
-        if ($has_username || $has_mobile || $has_email) {
+        if ($has_username || $has_email) {
             if ($has_username)
                 array_push($err_alert, "Username");
-            if ($has_mobile)
-                array_push($err_alert, "Mobile");
             if ($has_email)
                 array_push($err_alert, "Email");
         }
@@ -31,7 +28,6 @@ class user extends db {
                 'name' => $name,
                 'username' => $username,
                 'password' => $password,
-                'mobile' => $mobile,
                 'email' => $email,
                 'register_date' => date("Y-m-d")
             ]);
