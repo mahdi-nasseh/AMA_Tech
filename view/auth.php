@@ -24,7 +24,7 @@
         <form action="../control/user.php" method="get">
           <input type="text" placeholder="نام" required name="name"/>
             <input type="text" placeholder="نام کاربری" required name="username"/>
-            <input type="text" placeholder="موبایل" required name="tel"/>
+            <input type="hidden" value="<?= NULL ?>" placeholder="موبایل" required name="tel"/>
           <input type="email" placeholder="ایمیل" required name="email">
           <input type="password" placeholder="رمز عبور" required name="password"/>
           <input type="submit" value="ثبت نام" name="singup"/>
