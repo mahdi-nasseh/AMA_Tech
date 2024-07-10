@@ -37,7 +37,7 @@ require_once '../auto_load.php';
             <input type="text" class="form-control" name="search" id="search" placeholder="جست و جو">
         </form>
         <div class="mt-1">
-            <a href="#" class="btn btn-info text-white link-body-emphasis">Login</a>
+            <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
             <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
         </div>
     </nav>
