@@ -34,8 +34,8 @@
       <div class="form login">
         <header>ورود</header>
         <form action="../control/action.php" method="post">
-          <input type="text" placeholder="نام کاربری یا ایمیل یا موبایل" required />
-          <input type="password" placeholder="رمز عبور" required />
+          <input type="text" placeholder="نام کاربری یا ایمیل یا موبایل" name="key" required />
+          <input type="password" placeholder="رمز عبور" required name="password" />
           <a href="#">رمز عبور خود را فراموش کردید؟</a>
           <input type="submit" value="ورود" name="signin"/>
         </form>

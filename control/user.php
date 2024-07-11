@@ -1,12 +1,13 @@
 <?php
 require_once '../auto_load.php';
-class user extends db {
+class user{
     private $table = 'user';
     function login($username, $password = 0) {
+        global $DB;
         if ($password == 0)
-            $result = $this->select($this->table, "username='$username'")->fetch(PDO::FETCH_OBJ);
+            $result = $DB->select($this->table, "username='$username'")->fetch(PDO::FETCH_OBJ);
         else
-            $result = $this->select($this->table, "username='$username' and password='$password'")->fetch(PDO::FETCH_OBJ);
+            $result = $DB->select($this->table, "username='$username' and password='$password'")->fetch(PDO::FETCH_OBJ);
         if ($result)
             return $result->id;
         else
@@ -14,8 +15,9 @@ class user extends db {
     }
     function register($name, $username, $password, $email)
     {
-        $has_username = $this->select($this->table, "username='$username'")->fetch(PDO::FETCH_OBJ);
-        $has_email = $this->select($this->table, "email='$email'")->fetch(PDO::FETCH_OBJ);
+        global $DB;
+        $has_username = $DB->select($this->table, "username='$username'")->fetch(PDO::FETCH_OBJ);
+        $has_email = $DB->select($this->table, "email='$email'")->fetch(PDO::FETCH_OBJ);
         $err_alert = [];
         if ($has_username || $has_email) {
             if ($has_username)
@@ -24,7 +26,7 @@ class user extends db {
                 array_push($err_alert, "Email");
         }
         if (!$err_alert) {
-            $result = $this->insert($this->table, [
+            $result = $DB->insert($this->table, [
                 'name' => $name,
                 'username' => $username,
                 'password' => $password,
@@ -37,7 +39,8 @@ class user extends db {
         }
     }
     function edit($id, $name, $username, $password, $mobile, $email) {
-        $result = $this->update($this->table, [
+        global $DB;
+        $result = $DB->update($this->table, [
             'name' => $name,
             ' username' => $username,
             ' password' => $password,
@@ -47,14 +50,17 @@ class user extends db {
         return $result;
     }
     function remove($id){
-        return $this->delete($this->table, "id = $id");
+        global $DB;
+        return $DB->delete($this->table, "id = $id");
     }
     function select_user($where)
     {
-        return $this->select($this->table, $where)->fetch(PDO::FETCH_OBJ);
+        global $DB;
+        return $DB->select($this->table, $where)->fetch(PDO::FETCH_OBJ);
     }
     function select_users($where = '1=1', $limit = 0, $offset = 0)
     {
-        return $this->selects($this->table, $where, $limit, $offset)->fetchAll(PDO::FETCH_OBJ);
+        global $DB;
+        return $DB->selects($this->table, $where, $limit, $offset)->fetchAll(PDO::FETCH_OBJ);
     }
 }

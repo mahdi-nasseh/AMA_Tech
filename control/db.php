@@ -5,7 +5,7 @@ class db
     private $dbname;
     private $dbuser;
     private $dbpass;
-    function __construct( $dbname , $dbuser , $dbpass ){
+    function conn($dbname , $dbuser , $dbpass ){
         $this->dbname = $dbname;
         $this->dbuser = $dbuser;
         $this->dbpass = $dbpass;
@@ -55,7 +55,6 @@ class db
         $cols = [];
         foreach ($data as $key => $value) {
             $value = $this->change_data($value);
-
             array_push($cols,"$key = $value[0]");
         }
         $cols = implode(", ", $cols);
@@ -71,9 +70,6 @@ class db
     function select($table, $where)
     {
         $sql = 'SELECT * FROM '.$table.' WHERE '.$where;
-//        print_r($sql);exit();
-//        var_dump($this->($sql));exit();
-//        var_dump($this->db);exit();
         return $this->db->query($sql);
     }
     function selects($table, $where  = '1=1', $limit = 0, $offset = 0)
@@ -85,6 +81,3 @@ class db
         return $this->db->query($sql);
     }
 }
-
-
-

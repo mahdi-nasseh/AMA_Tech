@@ -7,19 +7,34 @@ if (isset($_POST['signup'])) {
     $password = checkInput($_POST['password']);
     $email = checkInput($_POST['email']);
 
-
     if (empty($name) || empty($username) || empty($password) || empty($email)) {
         header('location: ../views/auth.php?err=empty');
     }else{
-        $user = new user('ama_tech','root','');
+        $user = new user();
         $user = $user->register($name, $username, $password,$email);
-//        $user = (int) $user;
         if ((int) $user){
             $_SESSION['user_id'] = $user;
             header('location: ../view/index.php');
         }else {
             $_SESSION['err'] = $user;
             header('location: ../view/auth.php?err='.$user);
+        }
+    }
+}
+if (isset($_POST['signin'])) {
+    $key = checkInput($_POST['key']);
+    $password = checkInput($_POST['password']);
+    if (empty($key) || empty($password)) {
+        header('location: ../view/auth.php?err=empty');
+    } else {
+        $user = new user();
+        $user = $user->login($key, $password);
+        if ((int) $user){
+            $_SESSION['user_id'] = $user;
+            header('location: ../view/index.php');
+        } else {
+            $_SESSION['err'] = $user;
+            header('location: ../view/auth.php?err=notFindUser');
         }
     }
 }

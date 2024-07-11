@@ -23,11 +23,10 @@ require_once '../auto_load.php';
             <h1 class="fs-4 mt-2 fw-medium link-body-emphasis text-decoration-none ms-5">AMA<span
                         class="text-danger fst-italic">T</span>ech</h1>
             <a class="fw-bold me-3 py-2 link-body-emphasis text-decoration-none" href="#">خانه</a>
-            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">هوش مصنوعی</a>
-            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">سخت افزار</a>
-            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">نرم افزار</a>
-            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">شبکه</a>
-            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">بازی</a>
+            <?php $category = new category();$categories = $category->select_categories();
+            foreach ($categories as $category):?>
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#"><?= $category->name ?></a>
+            <?php endforeach;?>
         </div>
         <form method="post" action="search.html"
               class="btn-search mt-1 d-flex justify-content-center align-items-center">
@@ -37,8 +36,11 @@ require_once '../auto_load.php';
             <input type="text" class="form-control" name="search" id="search" placeholder="جست و جو">
         </form>
         <div class="mt-1">
-            <?= isset($_SESSION['uesr_id']) ? '<a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>' : '<a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>'  ?>
-
+            <?php if (!isset($_SESSION['user_id'])): ?>
+            <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
+            <?php else:?>
+            <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
+            <?php endif;?>
         </div>
     </nav>
     <!-- end nav -->
@@ -97,33 +99,32 @@ require_once '../auto_load.php';
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row g-3">
+                        <?php $posts = new post; $posts = $posts->select_posts();?>
+                        <?php foreach ($posts as $post): ?>
                         <div class="col-sm-4">
                             <div class="card">
                                 <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/1.jpg" class="card-img-top" alt="post-image"
+                                    <img src="<?="upload/$post->thumbnail";?>" class="card-img-top" alt="post-image"
                                          height="250"/>
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h4 class="card-title fw-bold">
-                                                لورم ایپسوم
+                                        <div class="d-flex justify-content-between" style="height: 50px;">
+                                            <h4 class="card-title fw-bold" style="line-height: 33px">
+                                                <?= $post->title ?>
                                             </h4>
-                                            <div>
-                                                <span class="badge text-bg-secondary">طبیعت</span>
+                                            <div><?php $category = new category(); ?>
+                                                <span class="badge text-bg-secondary"><?= $category->select_category("id = $post->category_id")->name?></span>
                                             </div>
                                         </div>
                                         <p class="card-text text-secondary pt-3">
-                                            لورم ایپسوم متن ساختگی با تولید
-                                            سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
-                                            چاپگرها و متون بلکه روزنامه و
-                                            مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی
-                                            مورد نیاز و کاربردهای متنوع با
-                                            هدف بهبود
+                                            <?= mb_substr($post->des, 0, 300) . " ..." ?>
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="fs-7 mb-0">
-                                                نویسنده : علی شیخ
+                                                <?php
+                                                $user = new user();
+                                                $user = $user->select_user("role = 'writer' AND id = $post->user_id");
+                                                echo 'نویسنده : ' . $user->name;
+                                                ?>
                                             </span>
                                             <div>
                                                 <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
@@ -136,201 +137,7 @@ require_once '../auto_load.php';
                                 </a>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/2.jpg" class="card-img-top" alt="post-image"
-                                         height="250"/>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="card-title fw-bold">
-                                                لورم ایپسوم
-                                            </h5>
-                                            <div>
-                                                <span class="badge text-bg-secondary">طبیعت</span>
-                                            </div>
-                                        </div>
-                                        <p class="card-text text-secondary pt-3">
-                                            لورم ایپسوم متن ساختگی با تولید
-                                            سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
-                                            چاپگرها و متون بلکه روزنامه و
-                                            مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی
-                                            مورد نیاز و کاربردهای متنوع با
-                                            هدف بهبود
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="fs-7 mb-0">
-                                                نویسنده : علی شیخ
-                                            </p>
-                                            <div>
-                                                <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg"
-                                                           alt="heart"> 10</span>
-                                                <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/3.jpg" class="card-img-top" alt="post-image"
-                                         height="250"/>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="card-title fw-bold">
-                                                لورم ایپسوم
-                                            </h5>
-                                            <div>
-                                                <span class="badge text-bg-secondary">طبیعت</span>
-                                            </div>
-                                        </div>
-                                        <p class="card-text text-secondary pt-3">
-                                            لورم ایپسوم متن ساختگی با تولید
-                                            سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
-                                            چاپگرها و متون بلکه روزنامه و
-                                            مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی
-                                            مورد نیاز و کاربردهای متنوع با
-                                            هدف بهبود
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="fs-7 mb-0">
-                                                نویسنده : علی شیخ
-                                            </p>
-                                            <div>
-                                                <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg"
-                                                           alt="heart"> 10</span>
-                                                <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/4.jpg" class="card-img-top" alt="post-image"
-                                         height="250"/>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="card-title fw-bold">
-                                                لورم ایپسوم
-                                            </h5>
-                                            <div>
-                                                <span class="badge text-bg-secondary">طبیعت</span>
-                                            </div>
-                                        </div>
-                                        <p class="card-text text-secondary pt-3">
-                                            لورم ایپسوم متن ساختگی با تولید
-                                            سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
-                                            چاپگرها و متون بلکه روزنامه و
-                                            مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی
-                                            مورد نیاز و کاربردهای متنوع با
-                                            هدف بهبود
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="fs-7 mb-0">
-                                                نویسنده : علی شیخ
-                                            </p>
-                                            <div>
-                                                <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg"
-                                                           alt="heart"> 10</span>
-                                                <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/5.jpg" class="card-img-top" alt="post-image"
-                                         height="250"/>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="card-title fw-bold">
-                                                لورم ایپسوم
-                                            </h5>
-                                            <div>
-                                                <span class="badge text-bg-secondary">طبیعت</span>
-                                            </div>
-                                        </div>
-                                        <p class="card-text text-secondary pt-3">
-                                            لورم ایپسوم متن ساختگی با تولید
-                                            سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
-                                            چاپگرها و متون بلکه روزنامه و
-                                            مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی
-                                            مورد نیاز و کاربردهای متنوع با
-                                            هدف بهبود
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="fs-7 mb-0">
-                                                نویسنده : علی شیخ
-                                            </p>
-                                            <div>
-                                                <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg"
-                                                           alt="heart"> 10</span>
-                                                <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <a href="single.html" class="text-black text-decoration-none">
-                                    <img src="./assets/images/6.jpg" class="card-img-top" alt="post-image"
-                                         height="250"/>
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="card-title fw-bold">
-                                                لورم ایپسوم
-                                            </h5>
-                                            <div>
-                                                <span class="badge text-bg-secondary">طبیعت</span>
-                                            </div>
-                                        </div>
-                                        <p class="card-text text-secondary pt-3">
-                                            لورم ایپسوم متن ساختگی با تولید
-                                            سادگی نامفهوم از صنعت چاپ و با
-                                            استفاده از طراحان گرافیک است.
-                                            چاپگرها و متون بلکه روزنامه و
-                                            مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی
-                                            مورد نیاز و کاربردهای متنوع با
-                                            هدف بهبود
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <p class="fs-7 mb-0">
-                                                نویسنده : علی شیخ
-                                            </p>
-                                            <div>
-                                                <span><img class="me-3" src="assets/icons/eye.svg" alt="eye"> 100</span>
-                                                <span><img class="me-3" src="assets/icons/heart.svg"
-                                                           alt="heart"> 10</span>
-                                                <span><img class="me-3" src="assets/icons/bookmark.svg" alt="bookmark"> 5</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                        <?php endforeach;?>
                     </div>
                 </div>
             </div>

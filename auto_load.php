@@ -8,12 +8,9 @@ spl_autoload_register( function($class){
         die('Class '.$class.' not found');
     }
 });
-//if (!isset($db)){
-//$database = new db();
-//$database->conn('ama_tech', 'root','');
-//}
-//function db(){
-//    return new DB('ama_tech', 'root', '');
-//}
+if (!isset($DB)){
+    $DB = new db();
+    $DB->conn('ama_tech', 'root', '');
+}
 ?>
 
