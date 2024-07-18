@@ -1,7 +1,7 @@
 <?php
 session_start();
 spl_autoload_register( function($class){
-    $className = "../control/$class.php";
+    $className = str_replace('\\', '/', __DIR__) . "/control/$class.php";
     if(file_exists($className)){
         include_once $className;
     } else {

@@ -1,6 +1,5 @@
 <?php
-require_once '../auto_load.php';
-
+require_once "../auto_load.php";
 if (isset($_POST['signup'])) {
     $name = checkInput($_POST['name']);
     $username = checkInput($_POST['username']);
@@ -8,7 +7,7 @@ if (isset($_POST['signup'])) {
     $email = checkInput($_POST['email']);
 
     if (empty($name) || empty($username) || empty($password) || empty($email)) {
-        header('location: ../views/auth.php?err=empty');
+        header('location: ../view/auth.php?err=empty');
     }else{
         $user = new user();
         $user = $user->register($name, $username, $password,$email);
