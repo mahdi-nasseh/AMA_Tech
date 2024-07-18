@@ -1,3 +1,6 @@
+<?php
+require_once (substr(__DIR__,0,39))."auto_load.php";
+?>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
 
@@ -12,18 +15,47 @@
 </head>
 
 <body>
+    <!-- start nav -->
+    <nav style="top: 5px; background: linear-gradient(360deg, #e9ecef, #fff 100px, #fff);" class="d-flex justify-content-between align-items-start mx-2 mt-2 px-4 rounded py-3 mb-4 border-bottom sticky-top">
+        <div class="d-flex flex-column flex-md-row align-items-center d-inline-flex gap-3">
+            <h1 class="fs-4 mt-2 fw-medium link-body-emphasis text-decoration-none ms-5"><a
+                        class="text-decoration-none text-black" href="index.php">AMA<span
+                            class="text-danger fst-italic">T</span>ech</a></h1>
+            <a class=" <?= !isset($_GET['cat_id']) ? 'fw-bold' : '' ?> me-3 py-2 link-body-emphasis text-decoration-none" href="index.php">خانه</a>
+            <?php $category = new category();
+            $categories = $category->select_categories();
+            if (isset($_GET['cat_id'])) {
+                $result = $category->select_categories("id = {$_GET['cat_id']}");
+                if (!$result){
+                    header('location: index.php');
+                }
+            }
+            foreach ($categories as $category):?>
+                <a class="me-3 py-2 link-body-emphasis text-decoration-none <?= isset($_GET['cat_id']) && $category->id == $_GET['cat_id'] ? 'fw-bold' : '' ?>" href="index.php?cat_id=<?= $category->id ?>"><?= $category->name ?></a>
+            <?php endforeach; ?>
+        </div>
+        <form method="post" action="search.php"
+              class="btn-search mt-1 d-flex justify-content-center align-items-center">
+            <label for="search" style="cursor: pointer">
+                <img width="25" src="assets/icons/search.svg" class="mx-2" alt="search">
+            </label>
+            <input type="text" class="form-control" name="search" id="search" placeholder="جست و جو">
+        </form>
+        <div class="mt-1">
+            <?php if (!isset($_SESSION['user_id'])): ?>
+                <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
+            <?php else: ?>
+                <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle"
+                                width="35"></a>
+            <?php endif; ?>
+        </div>
+    </nav>
+    <!-- end nav -->
     <div class="container py-3">
         <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
             <a href="index.php" class="fs-4 fw-medium link-body-emphasis text-decoration-none">
                 blog
             </a>
-
-            <nav class="d-inline-flex mt-2 mt-md-0 me-md-auto">
-                <a class="fw-bold me-3 py-2 link-body-emphasis text-decoration-none" href="#">طبیعت</a>
-                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">گردشگری</a>
-                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">تکنولوژی</a>
-                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="#">متفرقه</a>
-            </nav>
         </header>
 
         <main>
@@ -68,7 +100,7 @@
                                             هدف بهبود
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <a href="single.html" class="btn btn-sm btn-dark">مشاهده</a>
+                                            <a href="single.php" class="btn btn-sm btn-dark">مشاهده</a>
 
                                             <p class="fs-7 mb-0">
                                                 نویسنده : علی شیخ
@@ -100,7 +132,7 @@
                                             هدف بهبود
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <a href="single.html" class="btn btn-sm btn-dark">مشاهده</a>
+                                            <a href="single.php" class="btn btn-sm btn-dark">مشاهده</a>
 
                                             <p class="fs-7 mb-0">
                                                 نویسنده : علی شیخ
@@ -132,7 +164,7 @@
                                             هدف بهبود
                                         </p>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <a href="single.html" class="btn btn-sm btn-dark">مشاهده</a>
+                                            <a href="single.php" class="btn btn-sm btn-dark">مشاهده</a>
 
                                             <p class="fs-7 mb-0">
                                                 نویسنده : علی شیخ
