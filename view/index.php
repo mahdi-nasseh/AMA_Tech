@@ -1,8 +1,10 @@
 <?php
 require_once "../auto_load.php";
-if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
+if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id']))
     header('location: index.php');
-}
+
+if (isset($_GET['search']))
+    $search = trim($_GET['search']);
 ?>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
@@ -12,14 +14,14 @@ if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- title -->
     <title>AMA Tech</title>
-    <!-- bootstrap css-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- css -->
     <link rel="stylesheet" href="assets/css/style.css"/>
+    <!-- bootstrap css-->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 
 
-<body>
+<body dir="rtl">
 <!-- start nav -->
 <nav style="top: 5px; background: linear-gradient(360deg, #e9ecef, #fff 100px, #fff);" class="d-flex justify-content-between align-items-start mx-2 mt-2 px-4 rounded py-3 mb-4 border-bottom sticky-top">
     <div class="d-flex flex-column flex-md-row align-items-center d-inline-flex gap-3">
@@ -36,22 +38,26 @@ if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
             }
         }
         foreach ($categories as $category):?>
-            <a class="me-3 py-2 link-body-emphasis text-decoration-none <?= isset($_GET['cat_id']) && $category->id == $_GET['cat_id'] ? 'fw-bold' : '' ?>" href="index.php?cat_id=<?= $category->id ?>"><?= $category->name ?></a>
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none <?= isset($_GET['cat_id']) && $category->id == $_GET['cat_id'] ? 'fw-bold' : '' ?>" href="index.php?<?= isset($search) ? "search=$search&" : '' ?>cat_id=<?= $category->id ?>"><?= $category->name ?></a>
         <?php endforeach; ?>
     </div>
-    <form method="post" action="search.php"
-          class="btn-search mt-1 d-flex justify-content-center align-items-center">
+    <form method="get" class="btn-search mt-1 d-flex justify-content-center align-items-center">
         <label for="search" style="cursor: pointer">
-            <img width="25" src="assets/icons/search.svg" class="mx-2" alt="search">
+            <button type="submit" class="btn">
+                <img width="25" src="assets/icons/search.svg" class="mx-2" alt="search">
+            </button>
         </label>
-        <input type="text" class="form-control" name="search" id="search" placeholder="جست و جو">
+        <input type="text" class="form-control" value="<?= htmlspecialchars($search ?? '', ENT_QUOTES) ?>" name="search" id="search" placeholder="جست و جو">
+        <?php if (isset($_GET['ca
+        t_id'])): ?>
+            <input type="hidden" name="cat_id" class="form-control" value="<?= htmlspecialchars($_GET['cat_id'], ENT_QUOTES) ?>">
+        <?php endif; ?>
     </form>
     <div class="mt-1">
         <?php if (!isset($_SESSION['user_id'])): ?>
             <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
         <?php else: ?>
-            <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle"
-                            width="35"></a>
+            <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
         <?php endif; ?>
     </div>
 </nav>
@@ -59,8 +65,8 @@ if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
 
 <div class="container py-3">
     <!-- start header -->
-    <?php if (!isset($_GET['show']) && !isset($_GET['cat_id'])):?>
-    <header>
+    <?php if (!isset($_GET['show']) && !isset($_GET['cat_id']) && !isset($search)):?>
+    <header style="height: 80vh">
         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner rounded">
                 <?php
@@ -70,26 +76,24 @@ if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
                     $post = new post();
                     $post = $post->select_post("id = $slider->post_id");
                     ?>
-                    <div class="carousel-item overlay carousel-height <?= $slider->active == 1 ? 'active' : '' ?>">
-                        <img src="upload/<?= $post->thumbnail ?>" class="d-block w-100" alt="post-image"/>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5><?= $post->title ?></h5>
-                            <p>
-                                <?= mb_substr($post->des, 0, 100) . " ..." ?>
-                            </p>
+                    <a class="text-black" href="single.php?id=<?= $post->id ?>">
+                        <div class="carousel-item pt-4 carousel-height <?= $slider->active == 1 ? 'active' : '' ?>">
+                            <div class="d-flex">
+                                <!-- left -->
+                                <div class="text-end m-5">
+                                    <h3 class="text-secondary d-inline mb-3"><?= $post->title ?></h3>
+                                    <span class="badge text-bg-secondary mx-3 p-2"><?=(new category())->select_category("id = $post->category_id")->name ?></span>
+                                    <p class="mt-4"><?= mb_substr($post->des, 0, 600) . " ..." ?></p>
+                                </div>
+                                <!-- right -->
+                                <div class="">
+                                    <img src="upload/<?= $post->thumbnail ?>" class="image-right shadow" style="width: 600px; height: 400px;border-radius: 15px;" alt="post-img">
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
     </header>
     <?php endif;?>
@@ -103,13 +107,17 @@ if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
                 <div class="col-lg-12">
                     <div class="row g-3">
                         <?php $posts = new post;
-                         if (isset($_GET['cat_id'])) {
+                        if (isset($_GET['cat_id']) && isset($search))
+                            $posts = $posts->select_posts("category_id = {$_GET['cat_id']} AND title LIKE '%{$search}%'");
+                        else if (isset($_GET['cat_id']))
                             $posts = $posts->select_posts("category_id = {$_GET['cat_id']} ORDER BY id DESC");
-                        } else if (isset($_GET['show']) && $_GET['show'] == 'all') {
+                        else if (isset($search))
+                            $posts = $posts->select_posts("title LIKE '%{$search}%' ORDER BY id ASC");
+                        else if (isset($_GET['show']) && $_GET['show'] == 'all')
                             $posts = $posts->select_posts("1=1 ORDER BY id DESC");
-                        } else {
-                            $posts = $posts->select_posts('1=1 ORDER BY id DESC',9);
-                        }
+                        else
+                             $posts = $posts->select_posts('1=1 ORDER BY id DESC',9);
+
                         if (count($posts) > 0): $i = 0;
                             foreach ($posts as $post): $i++?>
                             <div class="col-sm-4 post-card" style="<?= $i > 3 ? 'opacity: 0;' : '' ?>" >
@@ -156,7 +164,7 @@ if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
                         <?php else: ?>
                             <div class="alert alert-danger text-center">خبری یافت نشد!</div>
                         <?php endif; ?>
-                        <?php if (!isset($_GET['show']) && !isset($_GET['cat_id'])): ?>
+                        <?php if (!isset($_GET['show']) && !isset($_GET['cat_id']) && !isset($search)): ?>
                         <div class="d-flex justify-content-center align-items-center">
                             <a class="btn btn-info text-white" href="index.php?show=all">نمایش همه</a>
                         </div>

@@ -26,6 +26,11 @@ body {
     max-width: 1200px;
 }
 
+.image-right{
+    width: 600px;
+    border-radius: 15px;
+}
+
 .text-justify {
   text-align: justify;
 }
