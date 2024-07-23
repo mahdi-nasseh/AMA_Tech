@@ -1,4 +1,6 @@
-<?php require_once '../../auto_load.php'; ?>
+<?php require_once
+require_once "../../auto_load.php";
+?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 

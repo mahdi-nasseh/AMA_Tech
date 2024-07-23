@@ -1,6 +1,5 @@
 <?php
-require_once '../auto_load.php';
-
+require_once "../auto_load.php";
 if (isset($_POST['signup'])) {
     $name = checkInput($_POST['name']);
     $username = checkInput($_POST['username']);

@@ -1,5 +1,5 @@
 <?php
-require_once (substr(__DIR__,0,39))."auto_load.php";
+require_once "../auto_load.php";
 class user{
     private $table = 'user';
     function login($username, $password = 0) {

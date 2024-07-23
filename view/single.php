@@ -1,5 +1,5 @@
 <?php
-require_once (substr(__DIR__,0,39))."auto_load.php";
+require_once "../auto_load.php";
 if (isset($_POST['submit'])) {
     $comment = new Comment();
     $comment = $comment->add($_GET['id'], $_SESSION['user_id'], $_POST['content']);

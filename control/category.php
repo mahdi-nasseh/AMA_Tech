@@ -1,5 +1,5 @@
 <?php
-
+require_once "../auto_load.php";
 class category
 {
     private $table = 'category';
