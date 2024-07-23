@@ -1,6 +1,10 @@
 <?php
 require_once "../auto_load.php";
+<<<<<<< Updated upstream
 if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id']))
+=======
+if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
+>>>>>>> Stashed changes
     header('location: index.php');
 
 if (isset($_GET['search']))
@@ -57,7 +61,12 @@ if (isset($_GET['search']))
         <?php if (!isset($_SESSION['user_id'])): ?>
             <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
         <?php else: ?>
+<<<<<<< Updated upstream
             <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
+=======
+            <a href="./panel/control-panel.php"><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle"
+                            width="35"></a>
+>>>>>>> Stashed changes
         <?php endif; ?>
     </div>
 </nav>

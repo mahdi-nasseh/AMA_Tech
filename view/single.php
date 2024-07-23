@@ -55,12 +55,13 @@ if (isset($_POST['submit'])) {
         <?php if (!isset($_SESSION['user_id'])): ?>
             <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
         <?php else: ?>
-            <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle"
+            <a href="./panel/admin-panel.php"><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle"
                             width="35"></a>
         <?php endif; ?>
     </div>
 </nav>
 <!-- end nav -->
+
 <div class="container py-3">
     <main>
         <!-- Content -->

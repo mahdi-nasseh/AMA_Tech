@@ -12,5 +12,4 @@ if (!isset($DB)){
     $DB = new db();
     $DB->conn('ama_tech', 'root', '');
 }
-?>
 

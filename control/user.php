@@ -1,5 +1,10 @@
 <?php
+<<<<<<< Updated upstream
 require_once "../auto_load.php";
+=======
+//include "../auto_load.php";
+require_once "db.php";
+>>>>>>> Stashed changes
 class user{
     private $table = 'user';
     function login($username, $password = 0) {
