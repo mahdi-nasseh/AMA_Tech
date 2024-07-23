@@ -1,12 +1,7 @@
 <?php
 require_once "../auto_load.php";
-<<<<<<< Updated upstream
 if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id']))
-=======
-if (isset($_GET['cat_id']) && !is_numeric($_GET['cat_id'])) {
->>>>>>> Stashed changes
     header('location: index.php');
-
 if (isset($_GET['search']))
     $search = trim($_GET['search']);
 ?>
@@ -23,7 +18,6 @@ if (isset($_GET['search']))
     <!-- bootstrap css-->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
-
 
 <body dir="rtl">
 <!-- start nav -->
@@ -59,14 +53,9 @@ if (isset($_GET['search']))
     </form>
     <div class="mt-1">
         <?php if (!isset($_SESSION['user_id'])): ?>
-            <a href="auth.php" class="btn btn-info text-white link-body-emphasis">ورود</a>
+            <a href="auth.php" class="badge text-bg-secondary mx-3 text-decoration-none py-2 pb-3 px-3" style="font-size: 16px">ورود</a>
         <?php else: ?>
-<<<<<<< Updated upstream
-            <a href=""><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
-=======
-            <a href="./panel/control-panel.php"><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle"
-                            width="35"></a>
->>>>>>> Stashed changes
+            <a href="./panel/control-panel.php"><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
         <?php endif; ?>
     </div>
 </nav>
@@ -141,7 +130,7 @@ if (isset($_GET['search']))
                                                     <?= $post->title ?>
                                                 </h4>
                                                 <div><?php $category = new category(); ?>
-                                                    <span class="badge text-bg-secondary"><?= $category->select_category("id = $post->category_id")->name ?></span>
+                                                    <span class="badge p-2 text-bg-secondary"><?= $category->select_category("id = $post->category_id")->name ?></span>
                                                 </div>
                                             </div>
                                             <p class="card-text text-secondary pt-3">

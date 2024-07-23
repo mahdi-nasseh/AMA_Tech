@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 18, 2024 at 03:03 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost:3306
+-- Generation Time: Jul 23, 2024 at 09:01 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -50,13 +50,13 @@ INSERT INTO `category` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `comment` (
-  `id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `create_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `content` text NOT NULL,
-  `reply` int(11) NOT NULL DEFAULT 0,
-  `status` tinyint(1) NOT NULL DEFAULT 0
+  `id` int NOT NULL,
+  `post_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reply` int NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -64,11 +64,10 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `post_id`, `user_id`, `create_date`, `content`, `reply`, `status`) VALUES
-(1, 2, 17, '2024-07-18 13:40:04', 'ojigyjetgyukjiop', 0, 1),
-(2, 2, 1, '2024-07-18 13:40:42', 'oij;gygfdxcgvhjukopl', 1, 1),
-(3, 2, 7, '2024-07-18 13:41:04', '[pjoihguyjgt', 0, 1),
-(4, 2, 14, '2024-07-18 14:43:43', '3wed5rfgyuhijkl', 3, 1),
-(10, 2, 17, '2024-07-18 16:15:39', 'dtrcyvubino', 0, 1);
+(1, 2, 19, '2024-07-18 13:40:04', 'ojigyjetgyukjiop', 0, 1),
+(2, 2, 18, '2024-07-18 13:40:42', 'oij;gygfdxcgvhjukopl', 1, 1),
+(3, 2, 18, '2024-07-18 13:41:04', '[pjoihguyjgt', 0, 1),
+(5, 2, 17, '2024-07-18 16:15:39', 'dtrcyvubino', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -77,13 +76,13 @@ INSERT INTO `comment` (`id`, `post_id`, `user_id`, `create_date`, `content`, `re
 --
 
 CREATE TABLE `post` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `thumbnail` varchar(255) DEFAULT NULL,
-  `des` mediumtext NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `create_date` datetime NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `des` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category_id` int NOT NULL,
+  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -105,9 +104,9 @@ INSERT INTO `post` (`id`, `user_id`, `title`, `thumbnail`, `des`, `category_id`,
 --
 
 CREATE TABLE `sliders` (
-  `id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 0
+  `id` int NOT NULL,
+  `post_id` int NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -127,14 +126,14 @@ INSERT INTO `sliders` (`id`, `post_id`, `active`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `mobile` varchar(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `role` enum('user','writer','admin') NOT NULL DEFAULT 'user',
-  `register_date` datetime NOT NULL DEFAULT current_timestamp()
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('user','writer','admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -142,13 +141,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `username`, `password`, `mobile`, `email`, `role`, `register_date`) VALUES
-(1, 'adminasdsa', 'adminass', 'a132', '09157894564', 'ali14\"gmail.com', 'user', '2024-07-07 00:00:00'),
-(7, 'adminasdsa', 'adminasadfass', 'a132', '09457894564', 'al1i14\"gmail.com', 'user', '2024-07-07 00:00:00'),
-(13, 'dsadadd', 'tuvyibuoni', '123', '', 'cytvuyibu@gmail.com', 'user', '2024-07-11 00:00:00'),
-(14, 'xrtcyvbui', 'noubiyvt7fcr6des5', '15487', '', 'r6ctv7ybuinoP@gmail.com', 'user', '2024-07-11 00:00:00'),
-(15, 'ewsa3qws4drf7', 're4w53asw4edr67', '187945', '', '5647dervw@gmail.com', 'user', '2024-07-11 00:00:00'),
-(16, 'mojmiuytr54', '45df6t7ybui', '1841*789', '', '=-0987yuhjkop@gmail.com', 'user', '2024-07-11 00:00:00'),
-(17, 'ali', 'ali123', '123', '', 'ali@gmail.com', 'writer', '2024-07-11 00:00:00');
+(17, 'ali', 'ali123', '123', '', 'ali@gmail.com', 'writer', '2024-07-11 00:00:00'),
+(18, 'امیرحسین', 'amirhossein', 'amir1234', '09151234567', 'amirhossein@gmail.com', 'admin', '2024-07-23 10:49:10'),
+(19, 'محمد', 'mohammad', 'm123', '09961478536', 'mohammad@gmail.com', 'user', '2024-07-23 12:17:35');
 
 --
 -- Indexes for dumped tables
@@ -194,31 +189,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

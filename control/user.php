@@ -1,10 +1,8 @@
 <?php
-<<<<<<< Updated upstream
-require_once "../auto_load.php";
-=======
-//include "../auto_load.php";
-require_once "db.php";
->>>>>>> Stashed changes
+if (strstr($_SERVER['REQUEST_URI'],'panel'))
+    require_once "../../auto_load.php";
+else
+    require_once "../auto_load.php";
 class user{
     private $table = 'user';
     function login($username, $password = 0) {

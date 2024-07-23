@@ -1,18 +1,16 @@
-<<<<<<< Updated upstream
-<?php require_once
+<?php
 require_once "../../auto_load.php";
+if (isset($_SESSION['user_id'])) {
+    $user = new user();
+    $user = $user->select_user("id =" . $_SESSION['user_id']);
+    if ($user->role == "admin") {
+        header('location: ./admin-panel.php');
+    } else if ($user->role == "user") {
+        header('location: ./user-panel.php');
+    }
+} else
+    header('location:./../index.php');
 ?>
-=======
-<?php require_once '../../auto_load.php';
-
-$user = new user();
-$user = $user->select_user("id =" . $_SESSION['user_id']);
-if ($user->role == "admin"){
-    header('location: ./admin-panel.php');
-}else if($user->role == "user"){
-    header('location: ./user-panel.php');
-}?>
->>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 

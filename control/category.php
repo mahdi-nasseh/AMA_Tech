@@ -1,5 +1,8 @@
 <?php
-require_once "../auto_load.php";
+if (strstr($_SERVER['REQUEST_URI'],'panel'))
+    require_once "../../auto_load.php";
+else
+    require_once "../auto_load.php";
 class category
 {
     private $table = 'category';
