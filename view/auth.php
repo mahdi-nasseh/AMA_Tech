@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Website - www.codingnepalweb.com -->
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8"/>

@@ -16,24 +16,29 @@ class user{
         else
             return false;
     }
-    function register($name, $username, $password, $email)
+    function register($name, $username, $password, $mobile, $email, $role = 'user')
     {
         global $DB;
         $has_username = $DB->select($this->table, "username='$username'")->fetch(PDO::FETCH_OBJ);
         $has_email = $DB->select($this->table, "email='$email'")->fetch(PDO::FETCH_OBJ);
+        $has_mobile = $DB->select($this->table, "mobile='$mobile'")->fetch(PDO::FETCH_OBJ);
         $err_alert = [];
         if ($has_username || $has_email) {
             if ($has_username)
                 array_push($err_alert, "Username");
             if ($has_email)
                 array_push($err_alert, "Email");
+            if ($has_mobile)
+                array_push($err_alert, "Mobile");
         }
         if (!$err_alert) {
             $result = $DB->insert($this->table, [
                 'name' => $name,
                 'username' => $username,
                 'password' => $password,
+                'mobile' => $mobile,
                 'email' => $email,
+                'role' => $role,
                 'register_date' => date("Y-m-d")
             ]);
             return $result;
@@ -41,14 +46,15 @@ class user{
             return implode(" and ", $err_alert) . ' already taken.';
         }
     }
-    function edit($id, $name, $username, $password, $mobile, $email) {
+    function edit($id, $name, $username, $password, $mobile, $email, $role = 'user') {
         global $DB;
         $result = $DB->update($this->table, [
             'name' => $name,
-            ' username' => $username,
-            ' password' => $password,
-            ' mobile' => $mobile,
-            ' email' => $email,
+            'username' => $username,
+            'password' => $password,
+            'mobile' => $mobile,
+            'email' => $email,
+            'role' => $role
         ], "id = $id");
         return $result;
     }

@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: vazir;
-  src: url(../fonts/Vazir.woff2);
+  src: url(../font/IRANSansWeb.woff2);
 }
 
 * {
@@ -78,7 +78,7 @@ body {
   margin-top: 40px;
 }
 
-form input {
+form input , form select option{
   height: 60px;
   outline: none;
   border: none;
