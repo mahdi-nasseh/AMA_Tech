@@ -17,6 +17,17 @@ if (isset($_SESSION['user_id'])) {
 } else
     header('location: ./../index.php');
 $mass = false;
+if (isset($_GET['Approve'])) {
+    if (is_numeric($_GET['Approve'])){
+        $comment = (new comment)->accept($_GET['Approve']);
+        header('location: admin-panel.php?page=comment');
+    }
+} else if (isset($_GET['deApprove'])){
+    if (is_numeric($_GET['deApprove'])) {
+        $comment = (new comment)->deAccept($_GET['deApprove']);
+        header('location: admin-panel.php?page=comment');
+    }
+}
 if (isset($_GET['page']) && isset($_GET['delete'])){
     $table = $_GET['page'];
     $id = (int) $_GET['delete'];
@@ -510,6 +521,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                         <th>کاربر</th>
                                         <th>پست</th>
                                         <th>محتوا</th>
+                                        <th>پاسخ</th>
                                         <th>وضعیت</th>
                                         <th>تاریخ ثبت</th>
                                         <!--<th class="text-nowrap">درصد یادگیری</th>-->
@@ -525,31 +537,23 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <td class="fw-bold"><?= $counter; ?></td>
                                             <!-- user -->
                                             <td class="text-nowrap"><?= (new user)->select_user('id = ' . $comment->user_id)->username ?></td>
-                                            <!--content-->
-                                            <td class="text-nowrap"><?= (new user)->select_user('id = ' . $comment->user_id)->username ?></td>
-                                            <!-- post  -->
-                                            <td class="text-nowrap "><?= mb_substr($comment->content, 0, 20) ?>...</td>
+                                            <!-- post -->
+                                            <td class="text-nowrap"><a class="text-black text-decoration-none" target="_blank" href="./../single.php?id=<?= $comment->post_id ?>"><?= (new post)->select_post('id = ' . $comment->post_id)->title ?></a></td>
+                                            <!-- content -->
+                                            <td class="text-nowrap"><?= mb_substr($comment->content, 0, 50) ?>...</td>
+                                            <!--reply-->
+                                            <?php $reply = $comment->reply ? (new user)->select_user('id = ' . (new comment)->select_comment("id = $comment->reply")->user_id)->username : false ?>
+                                            <td class="text-nowrap"><?= $reply ? "پاسخ به $reply" : 'پاسخ نیست' ?></td>
                                             <!--status-->
-                                            <td class="text-nowrap"><?= $comment->status ? 'فعال' : 'غیر فعال ' ?></td>
+                                            <td class="text-nowrap"><?php if ($comment->status): ?>
+                                                <a class="btn btn-outline-danger" style="width: 110px" href="admin-panel.php?page=comment&deApprove=<?= $comment->id ?>">غیر فعال شود</a>
+                                                <?php else: ?>
+                                                <a class="btn btn-outline-success" style="width: 110px" href="admin-panel.php?page=comment&Approve=<?= $comment->id ?>">فعال شود</a>
+                                                <?php endif; ?>
+                                            </td>
                                             <!--date-->
                                             <td class="text-nowrap"><?= $comment->create_date ?></td>
                                             <td class="text-nowrap d-flex gap-2">
-                                                <a href="">
-                                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg" stroke="#0a9900">
-
-                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                           stroke-linejoin="round"/>
-
-                                                        <g id="SVGRepo_iconCarrier">
-                                                            <path d="M20.1498 7.93997L8.27978 19.81C7.21978 20.88 4.04977 21.3699 3.32977 20.6599C2.60977 19.9499 3.11978 16.78 4.17978 15.71L16.0498 3.84C16.5979 3.31801 17.3283 3.03097 18.0851 3.04019C18.842 3.04942 19.5652 3.35418 20.1004 3.88938C20.6356 4.42457 20.9403 5.14781 20.9496 5.90463C20.9588 6.66146 20.6718 7.39189 20.1498 7.93997V7.93997Z"
-                                                                  stroke="#0a9900" stroke-width="1.5"
-                                                                  stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </g>
-                                                    </svg>
-                                                </a>
                                                 <a href="admin-panel.php?page=comment&delete=<?= $comment->id ?>">
                                                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg">

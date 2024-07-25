@@ -151,7 +151,7 @@ if (isset($_POST['submit'])) {
                             $comments = $comments->select_comments("post_id = {$_GET['id']} AND status = 1 AND reply = 0");
                             ?>
                             <?php if (count($comments)) : ?>
-                                <?php $allComment = new comment(); $allComment = $allComment->select_comments("post_id = {$_GET['id']}") ?>
+                                <?php $allComment = new comment(); $allComment = $allComment->select_comments("post_id = {$_GET['id']} && status = 1") ?>
                                 <p class="alert alert-info fs-6">تعداد کامنت ها : <?= count($allComment) ?></p>
                             <?php else : ?>
                                 <p class="alert alert-danger fs-6">کامنتی برای این خبر وجود ندارد!</p>
@@ -164,7 +164,7 @@ if (isset($_POST['submit'])) {
                                                  alt="user-profle"/>
                                             <?php $user = new user;
                                             $user = $user->select_user("id = $comment->user_id") ?>
-                                            <h5 class="card-title me-2 mb-0"><?= $user->name ?></h5>
+                                            <h5 class="card-title me-2 mb-0"><?= $user->username ?></h5>
                                         </div>
                                         <p class="card-text pt-3 pr-3"><?= $comment->content ?></p>
                                     </div>
@@ -182,7 +182,7 @@ if (isset($_POST['submit'])) {
                                                          alt="user-profle"/>
                                                     <?php $user = new user;
                                                     $user = $user->select_user("id = $reply->user_id") ?>
-                                                    <h5 class="card-title me-2 mb-0"><?= $user->name ?></h5>
+                                                    <h5 class="card-title me-2 mb-0"><?= $user->username ?></h5>
                                                 </div>
                                                 <p class="card-text pt-3 pr-3"><?= $reply->content ?></p>
                                             </div>

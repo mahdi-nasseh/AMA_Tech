@@ -55,10 +55,6 @@ class comment
         $result = $DB->update($this->table, [
             'status' => 0,
         ], "id = $id");
-    }
-    function is_accept($id){
-        global $DB;
-        $result = $DB->select($this->table, "id = $id AND status = 1");
-        return count($result) > 0;
+        return $result;
     }
 }
