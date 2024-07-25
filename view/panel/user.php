@@ -58,7 +58,7 @@ function checkInput($value)
         }
         ?>
         <form method="post">
-            <input value="<?= isset($user) ? $user->id : '' ?>" type="hidden" placeholder="موبایل" required name="id"/>
+            <input value="<?= isset($user) ? $user->id : '' ?>" type="hidden" placeholder="شناسه" required name="id"/>
             <input value="<?= isset($user) ? $user->name : '' ?>" type="text" placeholder="نام" required name="name"/>
             <input value="<?= isset($user) ? $user->username : '' ?>" type="text" placeholder="نام کاربری" required name="username"/>
             <input value="<?= isset($user) ? $user->mobile : '' ?>" type="<?= isset($user) ? 'text' : 'hidden' ?>" placeholder="موبایل" required name="mobile"/>

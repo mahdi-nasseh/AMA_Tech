@@ -397,7 +397,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                             <section class="border border-secondary-subtle rounded-3 mt-4 table-responsive w-100 px-2">
                                 <div class="p-2 w-100">
                                     <div class="d-flex justify-content-between align-items-center  w-100">
-                                        <a href="#" class="btn btn-primary">اضافه کردن دسته جدید</a>
+                                        <a href="category.php?action=add" class="btn btn-primary">اضافه کردن دسته جدید</a>
                                         <div>
                                             <span class="">مجموعه دسته ها: </span>
                                             <span class="fw-bold"><?= count($categories); ?></span>
@@ -427,7 +427,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <!-- post counts -->
                                             <td class="text-nowrap "><?= count((new post())->select_posts('category_id = ' . $category->id)) ?></td>
                                             <td class="text-nowrap d-flex gap-2">
-                                                <a href="">
+                                                <a href="category.php?action=<?= $category->id ?>">
                                                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg" stroke="#0a9900">
 
