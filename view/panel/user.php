@@ -85,7 +85,7 @@ function checkInput($value)
                         echo '';
                 } ?> value="admin">admin</option>
             </select>
-            <input type="submit" value="ثبت نام" name="submit"/>
+            <input type="submit" value="<?= isset($user) ? 'ویرایش' : 'ثبت' ?>" name="submit"/>
         </form>
     </div>
 </section>

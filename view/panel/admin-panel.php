@@ -22,8 +22,12 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
     $id = (int) $_GET['delete'];
     if ($table == 'user')
         $mass = (new user)->remove($id);
-    else if ($table == 'post')
+    else if ($table == 'post') {
+        @$delImg = (new post)->select_post("id = {$_GET['delete']}");
+        @$delImg = $delImg->thumbnail;
+        @unlink('../upload/' . $delImg);
         $mass = (new post)->remove($id);
+    }
     else if ($table == 'category')
         $mass = (new category)->remove($id);
     else if ($table == 'comment')
@@ -291,7 +295,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                             <section class="border border-secondary-subtle rounded-3 mt-4 table-responsive w-100 px-2">
                                 <div class="p-2 w-100">
                                     <div class="d-flex justify-content-between align-items-center  w-100">
-                                        <a href="#" class="btn btn-primary">اضافه کردن پست جدید</a>
+                                        <a href="post.php?action=add" class="btn btn-primary">اضافه کردن پست جدید</a>
                                         <div>
                                             <span class="">مجموع پست ها: </span>
                                             <span class="fw-bold"><?= count($posts); ?></span>
@@ -326,7 +330,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <td class="text-nowrap"><?= mb_substr($post->des, 0, 30); ?>...</td>
                                             <td class="text-nowrap"><?= $post->create_date; ?></td>
                                             <td class="text-nowrap d-flex gap-2">
-                                                <a href="">
+                                                <a href="post.php?action=<?= $post->id ?>">
                                                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg" stroke="#0a9900">
 
