@@ -55,7 +55,7 @@ if (isset($_GET['search']))
         <?php if (!isset($_SESSION['user_id'])): ?>
             <a href="auth.php" class="badge text-bg-secondary mx-3 text-decoration-none py-2 pb-3 px-3" style="font-size: 16px">ورود</a>
         <?php else: ?>
-            <a href="./panel/control-panel.php"><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
+            <a href="panel/index.php"><img class="mx-4 link-body-emphasis" src="assets/icons/profile.png" alt="person-circle" width="35"></a>
         <?php endif; ?>
     </div>
 </nav>

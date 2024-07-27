@@ -1,15 +1,16 @@
 <?php
 require_once "../../auto_load.php";
+$user = new user();
+if (isset($_GET['logout'])){
+    unset($_SESSION['user_id']);
+    header('location=./../index.php');
+}
 if (isset($_SESSION['user_id'])) {
-    $user = new user();
     $user = $user->select_user("id =" . $_SESSION['user_id']);
-    if ($user->role == "admin") {
-        header('location: ./admin-panel.php');
-    } else if ($user->role == "writer") {
-        header('location: ./writer-panel.php');
-    }
+    if ($user->role != "user")
+        header('location: ./index.php');
 } else
-    header('location:./../index.php');
+    header('location: ./index.php');
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">

@@ -7,15 +7,11 @@ if (isset($_GET['logout'])){
 }
 if (isset($_SESSION['user_id'])) {
     $user = $user->select_user("id =" . $_SESSION['user_id']);
-    if ($user->role == "admin") {
-        $role = "مدیر";
-    } else if ($user->role == "writer") {
-        header('location: ./writer-panel.php');
-    } else if ($user->role == "user") {
-        header('location: ./user-panel.php');
-    }
+    if ($user->role != "admin")
+        header('location: ./index.php');
 } else
-    header('location: ./../index.php');
+    header('location: ./index.php');
+
 $mass = false;
 if (isset($_GET['Approve'])) {
     if (is_numeric($_GET['Approve'])){
@@ -63,7 +59,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
 <div class="container-fluid">
     <div class="row">
         <!-- start sidebar -->
-        <?php include 'admin-sidebar.php'; ?>
+        <?php include 'sidebar.php'; ?>
         <!-- end sidebar -->
 
         <div class="col-lg-10 p-0">
@@ -78,61 +74,57 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                 <main>
                     <!-- title -->
                     <div class="pt-4 px-3">
-                        <h2><?= $user->name; ?> شما مدیر هستید. 🙌</h2>
+                        <h2><?= $user->name; ?> خوش آمدید</h2>
                     </div>
                     <?php
-                    $users = new user();
-                    $users = $users->select_users();
+                    $posts = new post();
+                    $posts = $posts->select_posts();
                     ?>
                     <!-- title -->
                     <div class="pt-4 px-3">
-                        <h2>کاربران اخیر</h2>
+                        <h2>پست ها</h2>
                     </div>
                     <!-- start table -->
                     <div class="container-fluid">
-                        <section class="border border-secondary-subtle rounded-3 mt-4 table-responsive w-100">
+                        <section class="border border-secondary-subtle rounded-3 mt-4 table-responsive w-100 px-2">
                             <div class="p-2 w-100">
-                                <div class="d-flex justify-content-between align-items-center w-100 px-2">
-                                    <a href="user.php?action=add" class="btn btn-primary">اضافه کردن کاربر جدید</a>
+                                <div class="d-flex justify-content-between align-items-center  w-100">
+                                    <a href="post.php?action=add" class="btn btn-primary">اضافه کردن پست جدید</a>
                                     <div>
-                                        <span class="">مجموعه کاربران: </span>
-                                        <span class="fw-bold"><?= count($users); ?></span>
+                                        <span class="">مجموع پست ها: </span>
+                                        <span class="fw-bold"><?= count($posts); ?></span>
                                     </div>
                                 </div>
-                                <!--<span class="fw-bold fs-5 w-100">وضعیت</span>-->
                             </div>
                             <table class="table table-borderless border-top border-secondary-subtle">
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>نام</th>
-                                    <th>نام کاربری</th>
-                                    <th>ایمیل</th>
-                                    <th>موبایل</th>
-                                    <th>نقش کاربر</th>
-                                    <!--<th class="text-nowrap">درصد یادگیری</th>-->
+                                    <th>تصویر</th>
+                                    <th>عنوان</th>
+                                    <th>دسته بندی</th>
+                                    <th>نویسنده</th>
+                                    <th>توضیحات</th>
+                                    <th>تاریخ انتشار</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
                                 $counter = 0;
-                                foreach ($users as $user) :
+                                foreach ($posts as $post) :
                                     $counter++; ?>
                                     <tr>
                                         <!--counter-->
                                         <td class="fw-bold"><?= $counter; ?></td>
-                                        <!-- name -->
-                                        <td class="text-nowrap"><?= $user->name; ?></td>
-                                        <!-- username -->
-                                        <td class="text-nowrap"><?= $user->username; ?></td>
-                                        <!-- email -->
-                                        <td class="text-nowrap"><?= $user->email; ?></td>
-                                        <!-- mobile -->
-                                        <td class="text-nowrap"><?= $user->mobile == null ? 'وارد نشده' : $user->mobile; ?></td>
-                                        <!-- role -->
-                                        <td class="text-nowrap"><?php if ($user->role == "admin") echo 'مدیر'; elseif ($user->role == 'user') echo 'کاربر'; elseif ($user->role == 'writer') echo 'نویسنده'; ?></td>
+                                        <!--title-->
+                                        <td class="text-nowrap"><img width="65" src="../upload/<?= $post->thumbnail; ?>" alt="img"></td>
+                                        <td class="text-nowrap"><?= $post->title; ?></td>
+                                        <td class="text-nowrap"><?php echo (new category())->select_category('id = ' . $post->category_id)->name; ?></td>
+                                        <td class="text-nowrap"><?php echo (new user())->select_user('id = ' . $post->user_id)->username; ?></td>
+                                        <td class="text-nowrap"><?= mb_substr($post->des, 0, 30); ?>...</td>
+                                        <td class="text-nowrap"><?= $post->create_date; ?></td>
                                         <td class="text-nowrap d-flex gap-2">
-                                            <a href="user.php?action=<?= $user->id ?>">
+                                            <a href="post.php?action=<?= $post->id ?>">
                                                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg" stroke="#0a9900">
 
@@ -146,10 +138,9 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                                               stroke="#0a9900" stroke-width="1.5"
                                                               stroke-linecap="round" stroke-linejoin="round"/>
                                                     </g>
-
                                                 </svg>
                                             </a>
-                                            <a href="admin-panel.php?page=user&delete=<?= $user->id ?>">
+                                            <a href="admin-panel.php?page=post&delete=<?= $post->id ?>">
                                                 <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg">
 
@@ -172,7 +163,6 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                                               stroke="#f00000" stroke-width="2"
                                                               stroke-linecap="round" stroke-linejoin="round"/>
                                                     </g>
-
                                                 </svg>
                                             </a>
                                         </td>
@@ -290,7 +280,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                         </div>
                         <!-- end table -->
                     </main>
-                    <!--posts-->
+                    <!--post-->
                 <?php elseif ($_GET['page'] == "post") : ?>
                     <main>
                         <?php
@@ -312,18 +302,17 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <span class="fw-bold"><?= count($posts); ?></span>
                                         </div>
                                     </div>
-                                    <!--<span class="fw-bold fs-5 w-100">وضعیت</span>-->
                                 </div>
                                 <table class="table table-borderless border-top border-secondary-subtle">
                                     <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>تصویر</th>
                                         <th>عنوان</th>
                                         <th>دسته بندی</th>
                                         <th>نویسنده</th>
                                         <th>توضیحات</th>
                                         <th>تاریخ انتشار</th>
-                                        <!--<th class="text-nowrap">درصد یادگیری</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -335,6 +324,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <!--counter-->
                                             <td class="fw-bold"><?= $counter; ?></td>
                                             <!--title-->
+                                            <td class="text-nowrap"><img width="65" src="../upload/<?= $post->thumbnail; ?>" alt="img"></td>
                                             <td class="text-nowrap"><?= $post->title; ?></td>
                                             <td class="text-nowrap"><?php echo (new category())->select_category('id = ' . $post->category_id)->name; ?></td>
                                             <td class="text-nowrap"><?php echo (new user())->select_user('id = ' . $post->user_id)->username; ?></td>
