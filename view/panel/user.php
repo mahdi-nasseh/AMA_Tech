@@ -1,5 +1,6 @@
 <?php
 require_once "../../auto_load.php";
+$current_user = (new user)->select_user("id = ". $_SESSION["user_id"]);
 if (isset($_GET['action']))
     $action = $_GET['action'];
 else
@@ -16,7 +17,10 @@ if (isset($_POST['submit'])) {
     $mobile = checkInput($_POST['mobile']);
     $email = checkInput($_POST['email']);
     $password = checkInput($_POST['password']);
-    $role = checkInput($_POST['role']);
+    if (isset($_POST['role']))
+        $role = checkInput($_POST['role']);
+    else
+        $role = $user->role;
 
     if (empty($name) || empty($username) || empty($email) || empty($password))
         header('user.php?err=empty');
@@ -51,7 +55,7 @@ function checkInput($value)
 <body>
 <section class="wrapper">
     <div class="form signup">
-        <header><?= $action == 'add' ? 'ثبت کاربر' : 'ویرایش کابر' ?></header>
+        <header><?= $action == 'add' ? 'ثبت کاربر' : 'ویرایش کاربر' ?></header>
         <?php
         if ($action !== 'add') {
             $user = (new user)->select_user("id = $action");
@@ -64,7 +68,7 @@ function checkInput($value)
             <input value="<?= isset($user) ? $user->mobile : '' ?>" type="<?= isset($user) ? 'text' : 'hidden' ?>" placeholder="موبایل" required name="mobile"/>
             <input value="<?= isset($user) ? $user->email : '' ?>" type="email" placeholder="ایمیل" required name="email">
             <input value="<?= isset($user) ? $user->password : '' ?>" type="password" placeholder="رمز عبور" required name="password"/>
-
+            <?php if ($current_user->role == 'admin'):?>
             <select name="role" id="role">
                 <option <?php if (isset($user->role)) {
                     if ($user->role == 'user')
@@ -85,6 +89,7 @@ function checkInput($value)
                         echo '';
                 } ?> value="admin">admin</option>
             </select>
+            <?php endif; ?>
             <input type="submit" value="<?= isset($user) ? 'ویرایش' : 'ثبت' ?>" name="submit"/>
         </form>
     </div>

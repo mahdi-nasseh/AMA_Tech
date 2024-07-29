@@ -7,7 +7,9 @@ else
 ?>
 <div class="col-lg-2 d-none d-lg-block p-0">
     <div class="shadow p-3 d-flex flex-column position-fixed h-100 w-inherit">
-        <img src="./assets/img/logotype.svg" alt="">
+        <h1 class="fs-4 mt-2 fw-medium link-body-emphasis text-decoration-none ms-5"><a
+                    class="text-decoration-none text-black" href="../index.php">AMA<span
+                        class="text-danger fst-italic">T</span>ech</a></h1>
         <hr>
         <!--side var items -->
         <ul class="nav nav-pills d-block mb-auto">
@@ -78,15 +80,8 @@ else
         </ul>
         <hr>
         <div class="dropdown">
-            <a href="<?= $user->role ?>-panel.php" data-bs-toggle="dropdown"
-               class="text-decoration-none text-dark-emphasis d-flex align-items-center gap-2 dropdown-toggle">
-                <div class="p-img bg-primary rounded-circle" style="width: 32px; height: 32px;"></div>
-                <span class="fw-bold"><?= $user->name; ?></span>
-            </a>
-            <ul class="dropdown-menu" data-bs-placement="top">
-                <li><a href="" class="dropdown-item">پروفایل</a></li>
-                <li><a href="<?= $user->role ?>-panel.php?logout=true" class="dropdown-item">خروج</a></li>
-            </ul>
+            <a class="btn btn btn-danger mx-2 float-end d-inline" href="<?= $user->role ?>-panel.php?logout=true">خروج</a>
+            <a class="btn btn btn-primary mx-2 float-end d-inline" href="user.php?action=<?= $_SESSION['user_id'] ?>">تغییر پروفایل</a>
         </div>
     </div>
 </div>

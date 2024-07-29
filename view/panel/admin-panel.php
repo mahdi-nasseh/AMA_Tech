@@ -105,6 +105,8 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                     <th>دسته بندی</th>
                                     <th>نویسنده</th>
                                     <th>توضیحات</th>
+                                    <th>تعداد بازدید</th>
+                                    <th>تعداد لایک</th>
                                     <th>تاریخ انتشار</th>
                                 </tr>
                                 </thead>
@@ -118,10 +120,13 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                         <td class="fw-bold"><?= $counter; ?></td>
                                         <!--title-->
                                         <td class="text-nowrap"><img width="65" src="../upload/<?= $post->thumbnail; ?>" alt="img"></td>
-                                        <td class="text-nowrap"><?= $post->title; ?></td>
+                                        <td class="text-nowrap"><a class="text-black text-decoration-none" target="_blank" href="./../single.php?id=<?= $post->id ?>"><?= $post->title ?></a></td>
                                         <td class="text-nowrap"><?php echo (new category())->select_category('id = ' . $post->category_id)->name; ?></td>
                                         <td class="text-nowrap"><?php echo (new user())->select_user('id = ' . $post->user_id)->username; ?></td>
                                         <td class="text-nowrap"><?= mb_substr($post->des, 0, 30); ?>...</td>
+                                        <td class="text-nowrap"><?= $post->views; ?></td>
+                                        <?php $views = (new post())->select_views($post->id); ?>
+                                        <td class="text-nowrap"><?php $like = (new post())->select_post_likes($post->id) ?><?= $like ? ' ' . count($like)  : ' 0' ?></td>
                                         <td class="text-nowrap"><?= $post->create_date; ?></td>
                                         <td class="text-nowrap d-flex gap-2">
                                             <a href="post.php?action=<?= $post->id ?>">
@@ -312,6 +317,8 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                         <th>دسته بندی</th>
                                         <th>نویسنده</th>
                                         <th>توضیحات</th>
+                                        <th>تعداد بازدید</th>
+                                        <th>تعداد لایک</th>
                                         <th>تاریخ انتشار</th>
                                     </tr>
                                     </thead>
@@ -321,14 +328,15 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                     foreach ($posts as $post) :
                                         $counter++; ?>
                                         <tr>
-                                            <!--counter-->
                                             <td class="fw-bold"><?= $counter; ?></td>
-                                            <!--title-->
                                             <td class="text-nowrap"><img width="65" src="../upload/<?= $post->thumbnail; ?>" alt="img"></td>
-                                            <td class="text-nowrap"><?= $post->title; ?></td>
+                                            <td class="text-nowrap"><a class="text-black text-decoration-none" target="_blank" href="./../single.php?id=<?= $post->id ?>"><?= $post->title ?></a></td>
                                             <td class="text-nowrap"><?php echo (new category())->select_category('id = ' . $post->category_id)->name; ?></td>
                                             <td class="text-nowrap"><?php echo (new user())->select_user('id = ' . $post->user_id)->username; ?></td>
                                             <td class="text-nowrap"><?= mb_substr($post->des, 0, 30); ?>...</td>
+                                            <td class="text-nowrap"><?= $post->views; ?></td>
+                                            <?php $views = (new post())->select_views($post->id); ?>
+                                            <td class="text-nowrap"><?php $like = (new post())->select_post_likes($post->id) ?><?= $like ? ' ' . count($like)  : ' 0' ?></td>
                                             <td class="text-nowrap"><?= $post->create_date; ?></td>
                                             <td class="text-nowrap d-flex gap-2">
                                                 <a href="post.php?action=<?= $post->id ?>">

@@ -40,7 +40,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
     else if ($table == 'comment')
         $mass = (new comment)->remove($id);
     else
-        header('location: admin-panel.php');
+        header("location: admin-panel.php?page=$table");
 }
 ?>
 <!DOCTYPE html>
@@ -103,8 +103,9 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                     <th>تصویر</th>
                                     <th>عنوان</th>
                                     <th>دسته بندی</th>
-                                    <th>نویسنده</th>
                                     <th>توضیحات</th>
+                                    <th>تعداد بازدید</th>
+                                    <th>تعداد لایک</th>
                                     <th>تاریخ انتشار</th>
                                 </tr>
                                 </thead>
@@ -114,14 +115,14 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                 foreach ($posts as $post) :
                                     $counter++; ?>
                                     <tr>
-                                        <!--counter-->
                                         <td class="fw-bold"><?= $counter; ?></td>
-                                        <!--title-->
                                         <td class="text-nowrap"><img width="65" src="../upload/<?= $post->thumbnail; ?>" alt="img"></td>
-                                        <td class="text-nowrap"><?= $post->title; ?></td>
+                                        <td class="text-nowrap"><a class="text-black text-decoration-none" target="_blank" href="./../single.php?id=<?= $post->id ?>"><?= $post->title ?></a></td>
                                         <td class="text-nowrap"><?php echo (new category())->select_category('id = ' . $post->category_id)->name; ?></td>
-                                        <td class="text-nowrap"><?php echo (new user())->select_user('id = ' . $post->user_id)->username; ?></td>
                                         <td class="text-nowrap"><?= mb_substr($post->des, 0, 30); ?>...</td>
+                                        <td class="text-nowrap"><?= $post->views; ?></td>
+                                        <?php $views = (new post())->select_views($post->id); ?>
+                                        <td class="text-nowrap"><?php $like = (new post())->select_post_likes($post->id) ?><?= $like ? ' ' . count($like)  : ' 0' ?></td>
                                         <td class="text-nowrap"><?= $post->create_date; ?></td>
                                         <td class="text-nowrap d-flex gap-2">
                                             <a href="post.php?action=<?= $post->id ?>">
@@ -204,8 +205,9 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                         <th>تصویر</th>
                                         <th>عنوان</th>
                                         <th>دسته بندی</th>
-                                        <th>نویسنده</th>
                                         <th>توضیحات</th>
+                                        <th>تعداد بازدید</th>
+                                        <th>تعداد لایک</th>
                                         <th>تاریخ انتشار</th>
                                     </tr>
                                     </thead>
@@ -219,10 +221,12 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <td class="fw-bold"><?= $counter; ?></td>
                                             <!--title-->
                                             <td class="text-nowrap"><img width="65" src="../upload/<?= $post->thumbnail; ?>" alt="img"></td>
-                                            <td class="text-nowrap"><?= $post->title; ?></td>
+                                            <td class="text-nowrap"><a class="text-black text-decoration-none" target="_blank" href="./../single.php?id=<?= $post->id ?>"><?= $post->title ?></a></td>
                                             <td class="text-nowrap"><?php echo (new category())->select_category('id = ' . $post->category_id)->name; ?></td>
-                                            <td class="text-nowrap"><?php echo (new user())->select_user('id = ' . $post->user_id)->username; ?></td>
                                             <td class="text-nowrap"><?= mb_substr($post->des, 0, 30); ?>...</td>
+                                            <td class="text-nowrap"><?= $post->views; ?></td>
+                                            <?php $views = (new post())->select_views($post->id); ?>
+                                            <td class="text-nowrap"><?php $like = (new post())->select_post_likes($post->id) ?><?= $like ? ' ' . count($like)  : ' 0' ?></td>
                                             <td class="text-nowrap"><?= $post->create_date; ?></td>
                                             <td class="text-nowrap d-flex gap-2">
                                                 <a href="post.php?action=<?= $post->id ?>">
@@ -281,7 +285,7 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                         <?php
                         $user_posts = (new post())->select_posts('user_id='.$user->id);
                         $comments= [];
-                        foreach ($user_posts as $index => $post) {
+                        foreach ($user_posts as $post) {
                             $new_comments = (new comment())->select_comments('post_id=' . $post->id);
                             $comments = array_merge($comments, $new_comments);
                         }
@@ -296,7 +300,6 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
 
                                 <div class="p-2 w-100">
                                     <div class="d-flex justify-content-between align-items-center  w-100">
-                                        <!--<a href="#" class="btn btn-primary">اضافه کردن کامنت ج</a>-->
                                         <div>
                                             <span class="">مجموعه کامنت ها: </span>
                                             <span class="fw-bold"><?= count($comments); ?></span>
@@ -330,8 +333,8 @@ if (isset($_GET['page']) && isset($_GET['delete'])){
                                             <!-- content -->
                                             <td class="text-nowrap"><?= mb_substr($comment->content, 0, 50) ?>...</td>
                                             <!--reply-->
-                                            <?php $reply = $comment->reply ? (new user)->select_user('id = ' . (new comment)->select_comment("id = $comment->reply")->user_id)->username : false ?>
-                                            <td class="text-nowrap"><?= $reply ? "پاسخ به $reply" : 'پاسخ نیست' ?></td>
+                                            <?php $reply = $comment->reply ? (new user)->select_user('id = ' . (new comment)->select_comment("id = $comment->reply")->user_id)->username : false ?><?php $link = "comment.php?action=$comment->id" ?>
+                                            <td class="text-nowrap"><?= $reply ? "<a href='#' class='btn btn-secondary'>پاسخ داده شده به $reply</a>" : "<a href={$link} class='btn btn-primary'>پاسخ دادن</a>" ?></td>
                                             <!--status-->
                                             <td class="text-nowrap"><?php if ($comment->status): ?>
                                                 <a class="btn btn-outline-danger" style="width: 110px" href="admin-panel.php?page=comment&deApprove=<?= $comment->id ?>">غیر فعال شود</a>
